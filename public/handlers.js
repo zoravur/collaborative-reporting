@@ -17,6 +17,7 @@ function processCase() {
 
   //push case file after they give permission.
   getNavigatorModule().getCoords(({latitude, longitude}) => {
+    console.log('20');
     caseFile.location = {lat: latitude, long: longitude};
     fb.pushCaseFile(caseFile);
   });
