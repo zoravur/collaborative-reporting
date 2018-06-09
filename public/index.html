@@ -1,0 +1,87 @@
+<head>
+</head>
+
+<body>
+
+  <p>Case ID:</p>
+  <input type="text" id="caseFileID"> <br>
+
+  <p>Evidence:</p>
+  <input type="file" multiple onchange="uploadFile(this)">
+
+  <p id="cases"></p>
+
+  <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
+
+  <script>
+  var config = {
+    apiKey: "AIzaSyD8JJvhxuwmYyJfftVTST-Id-SeMsxrAHs ",
+    authDomain: "collaborative-reporting.firebaseapp.com",
+    projectId: "collaborative-reporting",
+    databaseURL: "https://collaborative-reporting.firebaseio.com",
+    storageBucket: "gs://collaborative-reporting.appspot.com",
+  };
+
+  firebase.initializeApp(config);
+
+  var database = firebase.database();
+  var storage = firebase.storage();
+
+  function newCaseFile(id, location, date, description) {
+    // A post entry.
+    var postData = {
+      location: location,
+      date: date,
+      id: id,
+      description: description
+    };
+
+    // Get a key for a new Post.
+    var newPostKey = database.ref().child('caseFiles').push().key;
+
+    // Write the new post's data simultaneously in the posts list and the user's post list.
+    var updates = {};
+    updates['/caseFiles/' + newPostKey] = postData;
+
+    return firebase.database().ref().update(updates);
+  }
+
+  function uploadFile(input) {
+
+    var file = input.files[0];
+
+    var caseFileID = document.getElementById("caseFileID").value;
+
+    if(caseFileID == '') {
+      alert("Please enter the case file ID.")
+    } else {
+
+      const name = (+new Date()) + '-' + file.name;
+      const metadata = { contentType: file.type };
+      const task = storage.ref().child(caseFileID).child(name).put(file, metadata);
+
+      task.then((snapshot) => {
+        alert(snapshot.downloadURL);
+      });
+    }
+
+  }
+
+  database.ref('caseFiles').on('value', function(snapshot) {
+    var snap = snapshot.val();
+
+    var cases = document.getElementById('cases');
+    var asdf = '';
+
+    Object.keys(snap).forEach(function(key) {
+      var current = snap[key];
+      asdf += 'Case ID: ' + current.id + '<br>Location: ' + current.location + '<br>Date:' + current.date + '<br>Description: ' + current.description + '<br><br>';
+    });
+
+    cases.innerHTML = asdf;
+  });
+
+  //newCaseFile("1234", "toronto", "yesterday", "robbery");
+
+  </script>
+</body>
