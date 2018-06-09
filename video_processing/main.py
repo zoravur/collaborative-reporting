@@ -1,8 +1,13 @@
 import numpy as np
 import cv2
 import pyrebase
+import sys
 
-path = "okq/1528555120737-armed-robber.mp4"
+#path = "okq/1528555120737-armed-robber.mp4"
+path = sys.argv[1];
+
+print(path)
+sys.stdout.flush()
 
 config = {
   "apiKey": 'AIzaSyD8JJvhxuwmYyJfftVTST-Id-SeMsxrAHs',
