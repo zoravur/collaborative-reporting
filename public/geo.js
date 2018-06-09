@@ -3,7 +3,6 @@ handlePermission();
 let nav = navigator.geolocation;
 function getCoords(callback) {
   nav.getCurrentPosition(({coords}) => callback(coords));
-  nav.getCurrentPosition(({coords}) => callback(coords));
 }
 
 let getNavigatorModule = () => ({

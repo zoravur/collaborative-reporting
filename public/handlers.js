@@ -13,11 +13,19 @@ function processCase() {
   let caseFile = {};
   caseFile.id = Math.random();
   caseFile.date = new Date();
+  caseFile.description = document.getElementById('description').value;
+
+  //push case file after they give permission.
   getNavigatorModule().getCoords(({latitude, longitude}) => {
     caseFile.location = {lat: latitude, long: longitude};
+    fb.pushCaseFile(caseFile);
   });
-  caseFile.description = document.getElementById('description').value;
-  fb.pushCaseFile(caseFile);
+}
+
+function caseFileToString(caseFile) {
+  var {id, location, date, description} = caseFile;
+  let {lat,long} = location;
+  return 'Case ID: ' + id + `<br>Location: ${lat}, ${long}` + '<br>Date:' + date + '<br>Description: ' + description + '<br><br>';
 }
 
 function renderSnapshot(snapshot) {
@@ -27,8 +35,7 @@ function renderSnapshot(snapshot) {
   var asdf = '';
 
   Object.keys(snap).forEach(function(key) {
-    var current = snap[key];
-    asdf += 'Case ID: ' + current.id + '<br>Location: ' + current.location + '<br>Date:' + current.date + '<br>Description: ' + current.description + '<br><br>';
+    asdf += caseFileToString(snap[key]);
   });
   cases.innerHTML = asdf;
 }
