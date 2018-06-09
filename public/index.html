@@ -73,12 +73,16 @@
     var cases = document.getElementById('cases');
     var asdf = '';
 
-    Object.keys(snap).forEach(function(key) {
+    try {
+      Object.keys(snap).forEach(function(key) {
       var current = snap[key];
       asdf += 'Case ID: ' + current.id + '<br>Location: ' + current.location + '<br>Date:' + current.date + '<br>Description: ' + current.description + '<br><br>';
     });
-
-    cases.innerHTML = asdf;
+      cases.innerHTML = asdf;
+    } catch (e) {
+      cases.innerHTML = '';
+      console.log("asdf");
+    }
   });
 
   //newCaseFile("1234", "toronto", "yesterday", "robbery");
