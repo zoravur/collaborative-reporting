@@ -7,6 +7,19 @@ function newCaseFile(id, location, date, description) {
   };
 }
 
+// sorry
+let fb = getFirebaseModule();
+function processCase() {
+  let caseFile = {};
+  caseFile.id = Math.random();
+  caseFile.date = new Date();
+  getNavigatorModule().getCoords(({latitude, longitude}) => {
+    caseFile.location = {lat: latitude, long: longitude};
+  });
+  caseFile.description = document.getElementById('description').value;
+  fb.pushCaseFile(caseFile);
+}
+
 function renderSnapshot(snapshot) {
   var snap = snapshot.val() || {};
 
