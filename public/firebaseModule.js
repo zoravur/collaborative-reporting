@@ -35,10 +35,10 @@ function onDatabaseChange(callback) {
   database.ref('caseFiles').on('value', callback);
 }
 
-function uploadFile(input) {
+function uploadFile(caseFileID, input) {
   //var file = input.files[0];
-  input.forEach(file => {
-    var caseFileID = document.getElementById('caseFileID').value;
+  input.files.forEach(file => {
+    //var caseFileID = document.getElementById('caseFileID').value;
 
     if(caseFileID == '') {
       alert('Please enter the case file ID.');
@@ -49,12 +49,6 @@ function uploadFile(input) {
       const task = storage.ref().child(caseFileID).child(name).put(file, metadata);
 
       task.then((snapshot) => {
-        /*
-        storage.ref().child(caseFileID + '/' + name).getDownloadURL().then(function(url) {
-          alert('Pushing the following url to server:' + url);
-          _pushUrlToPython(url);
-        });
-        */
         _pushUrlToPython(caseFileID + '/' + name);
       });
     }

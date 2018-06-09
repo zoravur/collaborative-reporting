@@ -17,7 +17,7 @@ function caseFileToCard(caseFile){
   var {id, location, date, description} = caseFile;
   let {lat,long} = location; 
 
-  var cards = document.getElementById('cards')
+  var cards = document.getElementById('cards');
 
   // 1st tag 
   var colDiv = document.createElement('div'); 
