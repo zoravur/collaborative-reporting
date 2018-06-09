@@ -1,0 +1,32 @@
+
+  <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="public/firebaseModule.js"></script>
+
+  <script>
+  $.ajax({
+   type: 'GET',
+   url:'http://c4s.torontopolice.on.ca/arcgis/rest/services/CADPublic/C4S/MapServer/0/query?f=json&where=1%3D1&outSR=4326',
+   dataType: "jsonp",
+   success: function(data){
+      //console.log(data)
+
+      for(var i = 0; i < data.features.length; i++) {
+        var time = data.features[i].attributes.ATSCENE_TS;
+        var latitude = data.features[i].geometry.y;
+        var longitude = data.features[i].geometry.x
+
+        var caseFile = {};
+        caseFile.id = Math.random();
+        caseFile.date = new Date();
+        caseFile.description = 'Not available';
+        caseFile.location = {lat: latitude, lng: longitude};
+
+        pushCaseFile(caseFile);
+      }
+   },
+   error: function(jqXHR, textStatus, errorThrown) {
+      console.log("Error");
+   }
+  });
+  </script>

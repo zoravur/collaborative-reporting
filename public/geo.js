@@ -1,30 +1,32 @@
-handlePermission();
-
-let nav = navigator.geolocation;
 function getCoords(callback) {
-  nav.getCurrentPosition(({coords}) => callback(coords));
+  navigator.geolocation.getCurrentPosition(({coords}) => callback(coords));
 }
 
 let getNavigatorModule = () => ({
   getCoords: getCoords
 });
 
-function handlePermission() {
-  navigator.permissions.query({name:'geolocation'}).then(function(result) {
-    if (result.state == 'granted') {
-      report(result.state);
-    } else if (result.state == 'prompt') {
-      report(result.state);
-    } else if (result.state == 'denied') {
-      report(result.state);
-    }
-    result.onchange = function() {
-      report(result.state);
-    };
-  });
-}
 
-function report(state) {
-  console.log('Permission ' + state);
+function initGeoCoder() {
+  var geocoder = new google.maps.Geocoder;
+
+  function getGeoAddress(latlng) {
+    return new Promise((res, rej) => {
+      geocoder.geocode({'location': latlng}, function(results, status) {
+        if (status === 'OK') {
+          if (results[0]) {
+            res(results[0].formatted_address);
+          } else {
+            throw new Error('geocoding failed');
+            //rej('something bad happened');
+          }
+        } else {
+          rej(status);
+        }
+      });
+    });
+  }
+
+  return {reverseGeocode: getGeoAddress};
 }
 
