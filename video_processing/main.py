@@ -1,14 +1,24 @@
 import numpy as np
 import cv2
-import requests
+import pyrebase
 
+path = "okq/1528555120737-armed-robber.mp4"
 
-#url = 'https://firebasestorage.googleapis.com/v0/b/collaborative-reporting.appspot.com/o/Helooo%203%2F1528535277208-armed-robber.mp4?alt=media&token=e8648606-1a6c-4c10-a236-e8e68445e233'
-#r = requests.get(url, allow_redirects=True)
-#open('asdf.mp4', 'wb').write(r.content)
+config = {
+  "apiKey": 'AIzaSyD8JJvhxuwmYyJfftVTST-Id-SeMsxrAHs',
+  "authDomain": 'collaborative-reporting.firebaseapp.com',
+  "databaseURL": 'https://collaborative-reporting.firebaseio.com',
+  "storageBucket": 'collaborative-reporting.appspot.com',
+}
 
+firebase = pyrebase.initialize_app(config)
+storage = firebase.storage()
 
-cap = cv2.VideoCapture('media/video.mp4')
+fileExtension = path[path.rfind(".")+1:]
+directory = path[:path.rfind("/")+1]
+storage.child(path).download("media/video." + fileExtension)
+
+cap = cv2.VideoCapture('media/video.' + fileExtension)
 
 frame_array = []
 fps = cap.get(cv2.CAP_PROP_FPS)
@@ -39,6 +49,8 @@ for i in range(len(frame_array)):
     # writing to a image array
     out.write(frame_array[i])
 out.release()
+
+storage.child(directory + "processed.avi").put("media/processed.avi")
 
 cap.release()
 cv2.destroyAllWindows()

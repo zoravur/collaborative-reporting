@@ -1,0 +1,26 @@
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+<body>
+  <script>
+  $.ajax({
+   type: 'GET',
+   url:'http://c4s.torontopolice.on.ca/arcgis/rest/services/CADPublic/C4S/MapServer/0/query?f=json&where=1%3D1&outSR=4326',
+   dataType: "jsonp",
+   success: function(data){
+      //console.log(data)
+
+      for(var i = 0; i < data.features.length; i++) {
+        var time = data.features[i].attributes.ATSCENE_TS;
+        var x = data.features[i].geometry.x;
+        var y = data.features[i].geometry.y;
+        console.log(time, x, y);
+      }
+   },
+   error: function(jqXHR, textStatus, errorThrown) {
+      console.log("Error");
+   }
+  });
+  </script>
+</body>
