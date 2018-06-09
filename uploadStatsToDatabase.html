@@ -1,8 +1,8 @@
-<head>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-</head>
 
-<body>
+  <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="public/firebaseModule.js"></script>
+
   <script>
   $.ajax({
    type: 'GET',
@@ -13,9 +13,16 @@
 
       for(var i = 0; i < data.features.length; i++) {
         var time = data.features[i].attributes.ATSCENE_TS;
-        var x = data.features[i].geometry.x;
-        var y = data.features[i].geometry.y;
-        console.log(time, x, y);
+        var longitude = data.features[i].geometry.x;
+        var latitude = data.features[i].geometry.y;
+
+        var caseFile = {};
+        caseFile.id = Math.random();
+        caseFile.date = new Date();
+        caseFile.description = 'Not available';
+        caseFile.location = {lat: latitude, long: longitude};
+
+        pushCaseFile(caseFile);
       }
    },
    error: function(jqXHR, textStatus, errorThrown) {
@@ -23,4 +30,3 @@
    }
   });
   </script>
-</body>
