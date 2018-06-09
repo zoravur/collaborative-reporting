@@ -1,6 +1,7 @@
 {
     "env": {
         "browser": true,
+        "node": true,
         "commonjs": true,
         "es6": true
     },
@@ -29,6 +30,9 @@
             "off"
         ],
         "no-console": [
+            "off"
+        ],
+        "no-undef": [
             "off"
         ]
     }
