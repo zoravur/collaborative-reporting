@@ -28,3 +28,8 @@ function report(state) {
   console.log('Permission ' + state);
 }
 
+/*
+function proximity(coords1, coords2) {
+  return Math.hypot(coords2.lat - coords1.lat, coords2.long - coords1.long);
+}
+*/

@@ -29,20 +29,32 @@ function caseFileToString(caseFile) {
   return 'Case ID: ' + id + `<br>Location: ${lat}, ${long}` + '<br>Date:' + date + '<br>Description: ' + description + '<br><br>';
 }
 
-function renderSnapshot(snapshot) {
+async function renderSnapshot(snapshot) {
   var snap = snapshot.val() || {};
 
   var cases = document.getElementById('cases');
   var asdf = '';
 
+  let caseFiles = [];
   Object.keys(snap).forEach(function(key) {
-    asdf += caseFileToString(snap[key]);
+    caseFiles.push(snap[key]);
   });
+
+  let position = await new Promise((res, rej) => {
+    navigator.geolocation.getCurrentPosition(res, rej);
+  });
+
+  caseFiles = filterCasesByLocation(position, caseFiles);
+
+  caseFiles.forEach(caseFile => {
+    asdf += caseFileToString(caseFile);
+  });
+
   cases.innerHTML = asdf;
 }
 
 //Main initialization of app.
-function init() {
+async function init() {
   let storage = firebase.storage();
   let fileDrop = document.getElementById('file-drop');
   
@@ -50,7 +62,22 @@ function init() {
   fileDrop.addEventListener('change', () => {
     fb.uploadFile(fileDrop);
   });
+  
   fb.onDatabaseChange(renderSnapshot);
+}
+
+function filterCasesByLocation(position, cases) {
+  function proximity(coords1, coords2) { 
+    return Math.hypot(coords2.lat - coords1.lat, coords2.long - coords1.long);
+  }  
+
+  let coords1 = {lat: position.coords.latitude, long: position.coords.longitude};
+
+  return cases.filter(function(caseFile) {
+    let coords2 = caseFile.location;
+    //Change this to reasonable setting
+    return proximity(coords1, coords2) < 0.001;
+  });
 }
 
 init();

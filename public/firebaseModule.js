@@ -1,3 +1,14 @@
+const port = 3000;
+const pythonServerURL = 'localhost:' + port;
+
+function _pushUrlToPython(fileURL)  {
+  axios({
+    method: 'post',
+    url: pythonServerURL,
+    data: fileURL
+  });
+}
+
 var config = {
   apiKey: 'AIzaSyD8JJvhxuwmYyJfftVTST-Id-SeMsxrAHs ',
   authDomain: 'collaborative-reporting.firebaseapp.com',
@@ -25,25 +36,31 @@ function onDatabaseChange(callback) {
 }
 
 function uploadFile(input) {
+  //var file = input.files[0];
+  input.forEach(file => {
+    var caseFileID = document.getElementById('caseFileID').value;
 
-  var file = input.files[0];
+    if(caseFileID == '') {
+      alert('Please enter the case file ID.');
+    } else {
 
-  var caseFileID = document.getElementById('caseFileID').value;
+      const name = (+new Date()) + '-' + file.name;
+      const metadata = { contentType: file.type };
+      const task = storage.ref().child(caseFileID).child(name).put(file, metadata);
 
-  if(caseFileID == '') {
-    alert('Please enter the case file ID.');
-  } else {
-
-    const name = (+new Date()) + '-' + file.name;
-    const metadata = { contentType: file.type };
-    const task = storage.ref().child(caseFileID).child(name).put(file, metadata);
-
-    task.then((snapshot) => {
-      alert(snapshot.downloadURL);
-    });
-  }
-
+      task.then((snapshot) => {
+        /*
+        storage.ref().child(caseFileID + '/' + name).getDownloadURL().then(function(url) {
+          alert('Pushing the following url to server:' + url);
+          _pushUrlToPython(url);
+        });
+        */
+        _pushUrlToPython(caseFileID + '/' + name);
+      });
+    }
+  });
 }
+
 
 function getFirebaseModule() {
   return {
