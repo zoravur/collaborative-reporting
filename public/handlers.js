@@ -6,17 +6,27 @@ function processCase() {
   let caseFile = {};
   caseFile.id = Math.random();
   caseFile.date = new Date();
-  var categoryItem = document.getElementById("category");
+  var categoryItem = document.getElementById('category');
   caseFile.category = categoryItem.options[categoryItem.selectedIndex].text;
   caseFile.description = document.getElementById('description').value;
 
 
   //push case file after they give permission.
+
+  navigator.geolocation.getCurrentPosition(({coords}) => {
+    //console.log(coords);
+    let {latitude, longitude} = coords;
+    caseFile.location = {lat: latitude, lng: longitude};
+    fb.pushCaseFile(caseFile);
+  });
+
+  /*
   getNavigatorModule().getCoords(({latitude, longitude}) => {
     caseFile.location = {lat: latitude, lng: longitude};
     //caseFile.address = await geocoder.reverseGeocode(caseFile.location);
     fb.pushCaseFile(caseFile);
   });
+  */
 }
 
 function uploadCaseFile(inputElement) {
