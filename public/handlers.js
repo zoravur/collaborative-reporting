@@ -6,7 +6,10 @@ function processCase() {
   let caseFile = {};
   caseFile.id = Math.random();
   caseFile.date = new Date();
+  var categoryItem = document.getElementById("category");
+  caseFile.category = categoryItem.options[categoryItem.selectedIndex].text;
   caseFile.description = document.getElementById('description').value;
+
 
   //push case file after they give permission.
   getNavigatorModule().getCoords(({latitude, longitude}) => {
