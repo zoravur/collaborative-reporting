@@ -7,8 +7,10 @@ function newCaseFile(id, location, date, description) {
   };
 }
 
+
 // sorry
 let fb = getFirebaseModule();
+let geocoder = initGeoCoder();
 function processCase() {
   let caseFile = {};
   caseFile.id = Math.random();
@@ -19,15 +21,18 @@ function processCase() {
   getNavigatorModule().getCoords(({latitude, longitude}) => {
     console.log('20');
     caseFile.location = {lat: latitude, lng: longitude};
+    caseFile.address = await geocoder.reverseGeocode(caseFile.location);
     fb.pushCaseFile(caseFile);
   });
 }
+
 
 function caseFileToString(caseFile) {
   var {id, location, date, description} = caseFile;
   let {lat,lng} = location;
   return 'Case ID: ' + id + `<br>Location: ${lat}, ${lng}` + '<br>Date:' + date + '<br>Description: ' + description + '<br><br>';
 }
+
 
 async function renderSnapshot(snapshot) {
   var snap = snapshot.val() || {};
@@ -45,14 +50,20 @@ async function renderSnapshot(snapshot) {
   });
 
   caseFiles = filterCasesByLocation(position, caseFiles);
-  let geocoder = initGeoCoder();
 
-  caseFiles = caseFiles.map(async (caseFile) => {
-    caseFile.location = await geocoder.reverseGeocode(caseFile.location);
+  console.log(caseFiles.length);
+  caseFiles.forEach(async (caseFile) => {
+    try {
+      caseFile.location = await geocoder.reverseGeocode(caseFile.location);
+    } catch (e) {
+      console.log('you are dumb because' + e);
+    }
   });
 
-  caseFiles.forEach(caseFile => {
+
+  caseFiles.forEach((caseFile, i) => {
     asdf += JSON.stringify(caseFile, 0, 2) + '<br>';
+    setTimeout(() => geocoder.reverseGeocode(caseFile.location).then(console.log).catch(console.error), 5000 * i);
     //asdf += caseFileToString(caseFile);
   });
 
