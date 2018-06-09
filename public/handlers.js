@@ -3,6 +3,7 @@ function newCaseFile(id, location, date, description) {
     location: location,
     date: date,
     id: id,
+    category: category, 
     description: description
   };
 }
@@ -23,33 +24,37 @@ function processCase() {
   });
 }
 
-function caseFileToString(caseFile) {
-  var {id, location, date, description} = caseFile;
-  let {lat,long} = location;
-  return 'Case ID: ' + id + `<br>Location: ${lat}, ${long}` + '<br>Date:' + date + '<br>Description: ' + description + '<br><br>';
-}
+// function caseFileToString(caseFile) {
+//   var {id, location, date, description} = caseFile;
+//   let {lat,long} = location;
+//   return 'Case ID: ' + id + `<br>Location: ${lat}, ${long}` + '<br>Date:' + date + '<br>Description: ' + description + '<br><br>';
+// }
 
-function renderSnapshot(snapshot) {
-  var snap = snapshot.val() || {};
+// function renderSnapshot(snapshot) {
+//   var snap = snapshot.val() || {};
 
-  var cases = document.getElementById('cases');
-  var asdf = '';
+//   var cases = document.getElementById('cases');
+//   var asdf = '';
 
-  Object.keys(snap).forEach(function(key) {
-    asdf += caseFileToString(snap[key]);
-  });
-  cases.innerHTML = asdf;
-}
+//   Object.keys(snap).forEach(function(key) {
+//     asdf += caseFileToString(snap[key]);
+//   });
+//   cases.innerHTML = asdf;
+// }
+
 
 //Main initialization of app.
 function init() {
   let storage = firebase.storage();
-  let fileDrop = document.getElementById('file-drop');
-  
   let fb = getFirebaseModule();
+  
+  let fileDrop = document.getElementById('file-drop');
+
+  
   fileDrop.addEventListener('change', () => {
     fb.uploadFile(fileDrop);
   });
+ 
   fb.onDatabaseChange(renderSnapshot);
 }
 
