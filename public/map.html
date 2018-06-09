@@ -27,17 +27,16 @@
     <script src="./firebaseModule.js"></script>
 
     <script>
-      // Note: This example requires that you consent to location sharing when
-      // prompted by your browser. If you see the error "The Geolocation service
-      // failed.", it means you probably did not give permission for the browser to
-      // locate you.
-      var map, infoWindow;
+      getFirebaseModule().onDatabaseChange(renderSnapshot);
+
+      var map, infoWindow, markers;
       function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: -34.397, lng: 150.644},
-          zoom: 6
+          center: {lat: 43, lng: -79},
+          zoom: 15
         });
         infoWindow = new google.maps.InfoWindow;
+        markers = [];
 
         // Try HTML5 geolocation.
         if (navigator.geolocation) {
@@ -48,7 +47,7 @@
             };
 
             infoWindow.setPosition(pos);
-            infoWindow.setContent('Location found.');
+            infoWindow.setContent('You are here.');
             infoWindow.open(map);
             map.setCenter(pos);
           }, function() {
@@ -66,6 +65,33 @@
                               'Error: The Geolocation service failed.' :
                               'Error: Your browser doesn\'t support geolocation.');
         infoWindow.open(map);
+      }
+
+      function renderSnapshot(snapshot) {
+
+        var snap = snapshot.val() || {};
+
+        markers.forEach(function(e) {
+          e.setMap(null);
+        });
+
+        markers = [];
+
+        Object.keys(snap).forEach(function(key) {
+          var latitude = snap[key].location.lat;
+          var longitude = snap[key].location.long;
+          var time = snap[key].time;
+
+          markers.push(new google.maps.Marker({
+            position: {lat: latitude, lng: longitude},
+            map: map,
+            title: time
+          }));
+        });
+
+        markers.forEach(function(e) {
+          e.setMap(map);
+        });
       }
     </script>
     <script async defer
