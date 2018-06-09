@@ -1,13 +1,4 @@
-function getCoords(callback) {
-  navigator.geolocation.getCurrentPosition(({coords}) => callback(coords));
-}
-
-let getNavigatorModule = () => ({
-  getCoords: getCoords
-});
-
-
-function initGeoCoder() {
+function getGeocoder() {
   var geocoder = new google.maps.Geocoder;
 
   function getGeoAddress(latlng) {
