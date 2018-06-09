@@ -9,6 +9,8 @@ function processCase() {
   var categoryItem = document.getElementById('category');
   caseFile.category = categoryItem.options[categoryItem.selectedIndex].text;
   caseFile.description = document.getElementById('description').value;
+  caseFile.phone = document.getElementById('phone').value;
+  caseFile.address = document.getElementById('address').value; 
 
 
   //push case file after they give permission.
