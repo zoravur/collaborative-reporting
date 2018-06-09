@@ -2,6 +2,7 @@ function newCaseFile(id, location, date, description) {
   return {
     location: location,
     date: date,
+    category: category, 
     id: id,
     description: description
   };

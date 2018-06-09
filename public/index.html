@@ -1,33 +1,82 @@
 <head>
+    <link rel="stylesheet" type="text/css" href="css/util.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
 </head>
 
 <body>
 
-  <p>Case ID:</p>
-  <input type="text" id="caseFileID"> <br>
-  <p>Evidence:</p>
-  <input id="file-drop" type="file" multiple />
+  <div class="container-contact100">
+    <div class="wrap-contact100">
+      <!--<form class="contact100-form">-->
+        <span class="contact100-form-title">
+          Evidence Upload
+        </span>
+
+        <div class="wrap-input100 validate-input bg1 rs1-wrap-input100">
+          <span class="label-input100">CASE ID *</span>
+          <input type="text" id="caseFileID">
+        </div>
+
+        <div class="wrap-input100 validate-input bg1 rs1-wrap-input100">
+          <span class="label-input100">EVIDENCE *</span>
+          <input id="file-drop" type="file" multiple />
+        </div>
+
+        <div class="wrap-input100 input100-select bg1">
+          <span class="label-input100">Category *</span>
+          <div>
+            <select class="js-select2" name="service">
+              <option>Please chooses</option>
+              <option>Assault</option>
+              <option>Theft</option>
+              <option>Break and Enter</option>
+              <option>Homocide</option>
+              <option>Robbery</option>
+              <option>Sexual Violence</option>
+              <option>Shooting</option>
+            </select>
+            <div class="dropDownSelect2"></div>
+          </div>
+        </div>
+
+        <div id="new-case-form" class="wrap-input100 validate-input bg0 rs1-alert-validate">
+          <span class="label-input100">Description of Incident</span>
+          <textarea id="description" class="input100" name="message" placeholder="Your message here..."></textarea>
+        </div>
+        
+        <div class="container-contact100-form-btn">
+          <button id="submitCase" onclick="processCase(); document.getElementById('new-case-form').style.display = 'none';" class="contact100-form-btn">
+            <span>
+              Submit
+            </span>
+          </button>
+        </div>
 
 
-  <button id="reveal-form" onclick="document.getElementById('new-case-form').style.display = 'contents';">Add a new report!</button>
 
-  <div id="new-case-form" style="display: none;">
-	  <label for="description">Description of incident</label>
-	  <textarea id="description" name="message" rows="10" cols="30">Enter description here.</textarea> 
-	  <button id="submitCase" onclick="processCase(); document.getElementById('new-case-form').style.display = 'none';"> Submit </button>
+      <!--</form>-->
+    </div>
   </div>
 
-  <p id="cases"></p>
+  <!-- <p>Case ID:</p>
+  <input type="text" id="caseFileID"> <br>
+
+  <p>Evidence:</p>
+  <input id="file-drop" type="file" multiple onchange="uploadFile(this)">
+  <input id="file-drop" type="file" multiple />
+  <p id="cases"></p> -->
+
 
   <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
-  <script charset="utf-8">
-	function initMap() {}
+    <script charset="utf-8">
+  function initMap() {}
   </script>
   <script async defer
   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD90ygPBLrS0S848TdO5yKZN2C3oF5XBdo">
-
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src="./firebaseModule.js" charset="utf-8"></script>
+ <!--<script src="js/main.js"></script> -->
   <script src="./geo.js"></script>
   <script src="./handlers.js"></script>
+
 </body>
