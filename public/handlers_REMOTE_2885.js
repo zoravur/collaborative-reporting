@@ -18,15 +18,15 @@ function processCase() {
   //push case file after they give permission.
   getNavigatorModule().getCoords(({latitude, longitude}) => {
     console.log('20');
-    caseFile.location = {lat: latitude, long: longitude};
+    caseFile.location = {lat: latitude, lng: longitude};
     fb.pushCaseFile(caseFile);
   });
 }
 
 function caseFileToString(caseFile) {
   var {id, location, date, description} = caseFile;
-  let {lat,long} = location;
-  return 'Case ID: ' + id + `<br>Location: ${lat}, ${long}` + '<br>Date:' + date + '<br>Description: ' + description + '<br><br>';
+  let {lat,lng} = location;
+  return 'Case ID: ' + id + `<br>Location: ${lat}, ${lng}` + '<br>Date:' + date + '<br>Description: ' + description + '<br><br>';
 }
 
 async function renderSnapshot(snapshot) {

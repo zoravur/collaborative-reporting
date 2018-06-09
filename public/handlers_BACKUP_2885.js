@@ -3,6 +3,7 @@ function newCaseFile(id, location, date, description) {
     location: location,
     date: date,
     id: id,
+    category: category, 
     description: description
   };
 }
@@ -18,23 +19,59 @@ function processCase() {
   //push case file after they give permission.
   getNavigatorModule().getCoords(({latitude, longitude}) => {
     console.log('20');
-    caseFile.location = {lat: latitude, long: longitude};
+    caseFile.location = {lat: latitude, lng: longitude};
     fb.pushCaseFile(caseFile);
   });
 }
 
+<<<<<<< HEAD
+// function caseFileToString(caseFile) {
+//   var {id, location, date, description} = caseFile;
+//   let {lat,long} = location;
+//   return 'Case ID: ' + id + `<br>Location: ${lat}, ${long}` + '<br>Date:' + date + '<br>Description: ' + description + '<br><br>';
+// }
+||||||| merged common ancestors
 function caseFileToString(caseFile) {
   var {id, location, date, description} = caseFile;
   let {lat,long} = location;
   return 'Case ID: ' + id + `<br>Location: ${lat}, ${long}` + '<br>Date:' + date + '<br>Description: ' + description + '<br><br>';
 }
+=======
+function caseFileToString(caseFile) {
+  var {id, location, date, description} = caseFile;
+  let {lat,lng} = location;
+  return 'Case ID: ' + id + `<br>Location: ${lat}, ${lng}` + '<br>Date:' + date + '<br>Description: ' + description + '<br><br>';
+}
+>>>>>>> abcc345bcbd2e86793373d9087fb817b16e53b06
 
+<<<<<<< HEAD
+// function renderSnapshot(snapshot) {
+//   var snap = snapshot.val() || {};
+||||||| merged common ancestors
+function renderSnapshot(snapshot) {
+  var snap = snapshot.val() || {};
+=======
 async function renderSnapshot(snapshot) {
   var snap = snapshot.val() || {};
+>>>>>>> abcc345bcbd2e86793373d9087fb817b16e53b06
 
-  var cases = document.getElementById('cases');
-  var asdf = '';
+//   var cases = document.getElementById('cases');
+//   var asdf = '';
 
+//   Object.keys(snap).forEach(function(key) {
+//     asdf += caseFileToString(snap[key]);
+//   });
+//   cases.innerHTML = asdf;
+// }
+
+<<<<<<< HEAD
+||||||| merged common ancestors
+  Object.keys(snap).forEach(function(key) {
+    asdf += caseFileToString(snap[key]);
+  });
+  cases.innerHTML = asdf;
+}
+=======
   let caseFiles = [];
   Object.keys(snap).forEach(function(key) {
     caseFiles.push(snap[key]);
@@ -58,17 +95,25 @@ async function renderSnapshot(snapshot) {
 
   cases.innerHTML = asdf;
 }
+>>>>>>> abcc345bcbd2e86793373d9087fb817b16e53b06
 
 //Main initialization of app.
 async function init() {
   let storage = firebase.storage();
-  let fileDrop = document.getElementById('file-drop');
-  
   let fb = getFirebaseModule();
+  
+  let fileDrop = document.getElementById('file-drop');
+
+  
   fileDrop.addEventListener('change', () => {
     fb.uploadFile(fileDrop);
   });
+<<<<<<< HEAD
+ 
+||||||| merged common ancestors
+=======
   
+>>>>>>> abcc345bcbd2e86793373d9087fb817b16e53b06
   fb.onDatabaseChange(renderSnapshot);
 }
 
