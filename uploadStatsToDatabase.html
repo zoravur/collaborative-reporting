@@ -13,14 +13,14 @@
 
       for(var i = 0; i < data.features.length; i++) {
         var time = data.features[i].attributes.ATSCENE_TS;
-        var long = data.features[i].geometry.x;
-        var lat = data.features[i].geometry.y;
+        var latitude = data.features[i].geometry.y;
+        var longitude = data.features[i].geometry.x
 
         var caseFile = {};
         caseFile.id = Math.random();
         caseFile.date = new Date();
         caseFile.description = 'Not available';
-        caseFile.location = {lat: latitude, long: longitude};
+        caseFile.location = {lat: latitude, lng: longitude};
 
         pushCaseFile(caseFile);
       }

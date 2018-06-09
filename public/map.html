@@ -79,7 +79,7 @@
 
         Object.keys(snap).forEach(function(key) {
           var latitude = snap[key].location.lat;
-          var longitude = snap[key].location.long;
+          var longitude = snap[key].location.lng;
           var time = snap[key].time;
 
           markers.push(new google.maps.Marker({
