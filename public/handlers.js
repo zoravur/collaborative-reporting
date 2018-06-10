@@ -1,7 +1,7 @@
 // TODO: Add geocoding functionality to processCase
 // sorry
 let fb = getFirebaseModule();
-//let geocoder = getGeocoder();
+let geocoder = getGeocoder();
 function processCase() {
   let caseFile = {};
   caseFile.id = Math.round(Math.random() * 100000000);
@@ -12,7 +12,6 @@ function processCase() {
   caseFile.address = document.getElementById('address').value; 
 
   //push case file after they give permission.
-
   navigator.geolocation.getCurrentPosition(({coords}) => {
     //console.log(coords);
     let {latitude, longitude} = coords;
@@ -27,6 +26,12 @@ function processCase() {
     fb.pushCaseFile(caseFile);
   });
   */
+
+  document.getElementById('category').value = "";
+  document.getElementById('description').value = "";
+  document.getElementById('phone').value = "";
+  document.getElementById('address').value = "";
+  alert("Your case has been submitted.");
 }
 
 function uploadCaseFile(inputElement) {

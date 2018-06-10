@@ -20,15 +20,15 @@
         </ul>
     </div>
   </nav>
-
+ 
 	<div class="modal">
 	  <div class="modal-content">
-		<span id="modal-title">Default Case</span>
-		<div id="drop-area" class="card-panel teal lighten-2">
+		<!--<span id="modal-title">Default Case</span>-->
+		<div id="drop-area" class="card-panel  blue-grey lighten-3">
 		  <form class="my-form">
 			<p>Please upload your evidence</p>
 			<input type="file" id="fileElem" multiple accept="*"/>
-			<button type="button" onclick="fb.uploadFile(document.getElementById('modal-title').textContent, document.getElementById('fileElem'));">
+			<button type="button" onclick="fb.uploadFile(document.getElementById('modal-title').textContent, document.getElementById('fileElem')); showAlert();" class = "modal-close">
 			  Submit files
 			</button>
 		  </form>
@@ -49,7 +49,6 @@
 	<script type="text/javascript" src="geo.js"></script>
 
 	<script type="text/javascript" src="generatePDF.js"></script>
-	<script type="text/javascript" src="geo.js"></script>
 	<script type="text/javascript" src="materialize/js/materialize.min.js"></script>
 	<script src="cards.js"></script>
 </body>

@@ -75,7 +75,7 @@ function caseFileToCard(caseFile){
 
 function showDropzone(caseFile) {
   var elem = document.querySelector('.modal');
-  document.getElementById('modal-title').textContent = caseFile.id;
+  //document.getElementById('modal-title').textContent = caseFile.id;
   var instance = M.Modal.init(elem);
   instance.open();
 
@@ -89,6 +89,10 @@ function renderCards(snapshot){
   Object.keys(snap).forEach(function(key) {
     caseFileToCard(snap[key]);
   });
+}
+
+function showAlert(){
+  alert("Your evidence has been uploaded.")
 }
 
 //Main initialization of app.
