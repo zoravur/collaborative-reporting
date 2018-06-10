@@ -12,7 +12,6 @@ function processCase() {
   caseFile.phone = document.getElementById('phone').value;
   caseFile.address = document.getElementById('address').value; 
 
-
   //push case file after they give permission.
 
   navigator.geolocation.getCurrentPosition(({coords}) => {

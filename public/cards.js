@@ -54,10 +54,14 @@ function caseFileToCard(caseFile){
   contentDiv.appendChild(linkSection); 
 
   var link = document. createElement('a'); 
-  link.setAttribute('href', '#'); 
   link.innerHTML = 'This is a link'; 
+  link.setAttribute("id", "link-item");
   linkSection.appendChild(link); 
+
+  link.addEventListener('click',function() {createPDF(caseFile);}); 
 }
+
+
 
 function renderCards(snapshot){
   var snap = snapshot.val() || {};
