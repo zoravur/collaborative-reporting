@@ -1,0 +1,32 @@
+<head> 
+	<!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="materialize/css/materialize.css"  media="screen,projection"/>
+    
+</head>
+
+<body>
+
+	  <nav>
+    	<div class="nav-wrapper">
+	      	<a href="#" class="brand-logo">Logo</a>
+	      	<ul id="nav-mobile" class="right hide-on-med-and-down">
+	        <li><a href="sass.html">Cases</a></li>
+	        <li><a href="badges.html">Map</a></li>
+	      	</ul>
+    	</div>
+  	</nav>
+
+	<div class = row id = 'cards'></div>
+
+ 	<script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
+ 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.debug.js"></script>
+	<script src="./firebaseModule.js" charset="utf-8"></script>
+	<script src="./geo.js"></script>
+	<script src="./cards.js"></script>
+
+	<script src="./generatePDF.js"></script>
+
+	<script type="text/javascript" src="materialize/js/materialize.min.js"></script>
+</body>
