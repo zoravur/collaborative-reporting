@@ -53,14 +53,32 @@ function caseFileToCard(caseFile){
   linkSection.className = 'card-action'; 
   contentDiv.appendChild(linkSection); 
 
-  var link = document. createElement('a'); 
-  link.innerHTML = 'This is a link'; 
-  link.setAttribute("id", "link-item");
+  var link = document.createElement('a'); 
+  link.innerHTML = 'Generate PDF'; 
+  link.setAttribute('id', 'link-item');
   linkSection.appendChild(link); 
 
   link.addEventListener('click',function() {createPDF(caseFile);}); 
+
+  var secondLinkSection = document.createElement('div'); 
+  secondLinkSection.className = 'card-action'; 
+  contentDiv.appendChild(secondLinkSection); 
+
+  var evidenceLink = document.createElement('a'); 
+  evidenceLink.innerHTML = 'Add Evidence'; 
+  evidenceLink.setAttribute('id', 'link-item');
+  secondLinkSection.appendChild(evidenceLink); 
+
+  evidenceLink.addEventListener('click',function() {showDropzone(caseFile);}); 
 }
 
+function showDropzone(caseFile) {
+  var elem = document.querySelector('.modal');
+  document.getElementById('modal-title').textContent = caseFile.id;
+  var instance = M.Modal.init(elem);
+  instance.open();
+
+}
 
 
 function renderCards(snapshot){
@@ -82,7 +100,6 @@ function init() {
   fb.onDatabaseChange(renderCards);
 
   var elem = document.querySelector('.modal');
-  console.log(elem);
   var instance = M.Modal.init(elem);
   instance.open();
 

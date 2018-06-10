@@ -1,4 +1,4 @@
-var localtunnel = require('localtunnel');
+//var localtunnel = require('localtunnel');
 var express = require('express');
 
 var app = express();
@@ -13,15 +13,17 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/public/index.html');
 });
 
-app.post('/uploadVideo' (req, res) => {
-  var path = "path";
-  var spawn = require("child_process").spawn;
-  var pythonProcess = spawn('python',["video_processing/main.py", path]);
+app.post('/uploadVideo', (req, res) => {
+  var path = 'path';
+  var spawn = require('child_process').spawn;
+  var pythonProcess = spawn('python', ['video_processing/main.py', path]);
+  res.sendStatus(200);
 });
 
 
 app.listen(3000, () => {console.log('Listening on 3000');});
 
+/*
 var tunnel = localtunnel(3000, {subdomain: "zoravur"}, function(err, tunnel) {
     if (err) {
       console.log(err);
@@ -29,3 +31,4 @@ var tunnel = localtunnel(3000, {subdomain: "zoravur"}, function(err, tunnel) {
 
     console.log(tunnel.url);
 });
+*/
