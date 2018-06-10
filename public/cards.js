@@ -76,6 +76,21 @@ function init() {
   let fileDrop = document.getElementById('file-drop');
 
   fb.onDatabaseChange(renderCards);
+
+  var elem = document.querySelector('.modal');
+  console.log(elem);
+  var instance = M.Modal.init(elem);
+  instance.open();
+
+  window.addEventListener('dragover',function(e){
+    e = e || event;
+    e.preventDefault();
+  },false);
+  window.addEventListener('drop',function(e){
+    e = e || event;
+    e.preventDefault();
+  },false);
+
 }
 
 init();

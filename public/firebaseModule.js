@@ -1,7 +1,7 @@
-const port = 3000;
-const pythonServerURL = 'localhost:' + port;
+//const port = 3000;
+const pythonServerURL = 'https://zoravur.localtunnel.me';
 
-function _pushUrlToPython(fileURL)  {
+function pushUrlToNode(fileURL)  {
   axios({
     method: 'post',
     url: pythonServerURL,
@@ -36,9 +36,9 @@ function onDatabaseChange(callback) {
 }
 
 function uploadFile(caseFileID, input) {
-  //var file = input.files[0];
-  input.files.forEach(file => {
-    //var caseFileID = document.getElementById('caseFileID').value;
+  console.log(input.files);
+  Object.keys(input.files).forEach(key => {
+    let file = input.files[key];
 
     if(caseFileID == '') {
       alert('Please enter the case file ID.');
@@ -49,12 +49,11 @@ function uploadFile(caseFileID, input) {
       const task = storage.ref().child(caseFileID).child(name).put(file, metadata);
 
       task.then((snapshot) => {
-        _pushUrlToPython(caseFileID + '/' + name);
+        pushUrlToNode(caseFileID + '/' + name);
       });
     }
   });
 }
-
 
 function getFirebaseModule() {
   return {

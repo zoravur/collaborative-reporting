@@ -2,11 +2,14 @@
 	  <!--Import Google Icon Font-->
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
       <!--Import materialize.css-->
-      <link type="text/css" rel="stylesheet" href="materialize/css/materialize.css"  media="screen,projection"/>
+	  <!--<link type="text/css" rel="stylesheet" href="materialize/css/materialize.css"  media="screen,projection"/>-->
+	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+	  <!-- Compiled and minified JavaScript -->
+	  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+
 </head>
 
 <body>
-
 	  <nav>
     	<div class="nav-wrapper">
 	      	<a href="#" class="brand-logo">Logo</a>
@@ -17,12 +20,32 @@
     	</div>
   	</nav>
 
+	<div class="modal">
+	  <div class="modal-content">
+		<span id="modal-title">Default Case</span>
+		<div id="drop-area" class="card-panel teal lighten-2">
+		  <form class="my-form">
+			<p>Please upload your evidence</p>
+			<input type="file" id="fileElem" multiple accept="*"/>
+			<button type="button" onclick="fb.uploadFile(document.getElementById('modal-title').textContent, document.getElementById('fileElem'));">
+			  Submit files
+			</button>
+		  </form>
+		</div>
+
+	  </div>
+	  <div class="modal-footer">
+		<a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+	  </div>
+	</div>
+
 	<div class = row id = 'cards'></div>
 
+	<script src="./dropzone.js" charset="utf-8"></script>
  	<script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
 	<script src="./firebaseModule.js" charset="utf-8"></script>
 	<script src="./geo.js"></script>
-	<script src="./cards.js"></script>
 
 	<script type="text/javascript" src="materialize/js/materialize.min.js"></script>
+	<script src="./cards.js"></script>
 </body>
