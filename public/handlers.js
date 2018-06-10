@@ -4,7 +4,7 @@ let fb = getFirebaseModule();
 //let geocoder = getGeocoder();
 function processCase() {
   let caseFile = {};
-  caseFile.id = Math.random();
+  caseFile.id = Math.round(Math.random() * 100000000);
   caseFile.date = new Date();
   var categoryItem = document.getElementById('category');
   caseFile.category = categoryItem.options[categoryItem.selectedIndex].text;
@@ -36,14 +36,14 @@ function uploadCaseFile(inputElement) {
 
 async function init() {
   let storage = firebase.storage();
-  let fileDrop = document.getElementById('file-drop');
+  //let fileDrop = document.getElementById('file-drop');
   
   let fb = getFirebaseModule();
 
   //TODO: Change so that files are not sent to server when attached
-  fileDrop.addEventListener('change', () => {
-    fb.uploadFile(fileDrop);
-  });
+  //fileDrop.addEventListener('change', () => {
+  //  fb.uploadFile(fileDrop);
+  //});
 }
 
 init();

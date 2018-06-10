@@ -1,0 +1,91 @@
+<head>
+    <link rel="stylesheet" type="text/css" href="css/util.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+</head>
+
+<body>
+
+  <div class="container-contact100">
+    <div class="wrap-contact100">
+      <!--<form class="contact100-form">-->
+        <span class="contact100-form-title">
+          Sign Up for Text Notifications
+        </span>
+
+        <div class="wrap-input100 validate-input bg1 rs1-wrap-input100" data-validate = "Enter Your Email (e@a.x)">
+          <span class="label-input100">Name *</span>
+          <input class="input100" type="text" id="name" placeholder="Enter Your Full Name ">
+        </div>
+
+        <div class="wrap-input100 bg1 rs1-wrap-input100">
+          <span class="label-input100">Phone Number</span>
+          <input class="input100" type="text" id="phone" placeholder="Enter Phone Number">
+        </div>
+
+        <div class="container-contact100-form-btn">
+          <button id="submitCase" onclick="signUp();"  class="contact100-form-btn">
+            <span>
+              Submit
+            </span>
+          </button>
+        </div>
+
+    </div>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></scripts>
+    <script charset="utf-8">
+  function initMap() {}
+  </script>
+  <script async defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD90ygPBLrS0S848TdO5yKZN2C3oF5XBdo">
+  <script src="./firebaseModule.js" charset="utf-8"></script>
+ <!--<script src="js/main.js"></script> -->
+  <script>
+
+    var user = {};
+    var gotLocation = false;
+
+    navigator.geolocation.getCurrentPosition(function(data) {
+
+      var {latitude, longitude} = data.coords;
+      user.location = {lat: latitude, lng: longitude};
+
+      gotLocation = true;
+    });
+
+    function signUp() {
+
+      if(gotLocation) {
+
+        var config = {
+          apiKey: 'AIzaSyD8JJvhxuwmYyJfftVTST-Id-SeMsxrAHs ',
+          authDomain: 'collaborative-reporting.firebaseapp.com',
+          projectId: 'collaborative-reporting',
+          databaseURL: 'https://collaborative-reporting.firebaseio.com',
+          storageBucket: 'gs://collaborative-reporting.appspot.com',
+        };
+
+        firebase.initializeApp(config);
+
+        var database = firebase.database();
+
+        user.name = document.getElementById('name').value;
+        user.number = document.getElementById('phone').value;
+
+        var newFileKey = database.ref().child('users').push().key;
+
+        var updates = {};
+        updates['/users/' + newFileKey] = user;
+        firebase.database().ref().update(updates);
+
+        alert("Thank you for subscribing!");
+
+      } else {
+        alert("Error obtaining location.");
+      }
+    }
+
+  </script>
+
+</body>

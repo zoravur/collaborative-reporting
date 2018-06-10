@@ -1,5 +1,5 @@
-//const port = 3000;
-const pythonServerURL = 'https://zoravur.localtunnel.me/uploadVideo';
+//const pythonServerURL = 'http://localhost:4000/uploadVideo';
+const pythonServerURL = '/uploadVideo';
 
 function pushUrlToNode(fileURL)  {
   axios({

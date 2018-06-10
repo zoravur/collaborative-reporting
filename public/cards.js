@@ -14,8 +14,9 @@ function processCase() {
 }
 
 function caseFileToCard(caseFile){
-  var {id, location, date, description} = caseFile;
+  var {id, location, date, category, description, phone} = caseFile;
   let {lat,long} = location; 
+
 
   var cards = document.getElementById('cards');
 
@@ -41,7 +42,7 @@ function caseFileToCard(caseFile){
   var title = document.createElement('span');
   title.className = 'card-title'; 
   contentInside.appendChild(title); 
-  title.innerHTML = id; 
+  title.innerHTML = category; 
 
   // add the description 
   var text = document.createElement('p');
@@ -54,7 +55,7 @@ function caseFileToCard(caseFile){
   contentDiv.appendChild(linkSection); 
 
   var link = document.createElement('a'); 
-  link.innerHTML = 'Generate PDF'; 
+  link.innerHTML = 'Create Report'; 
   link.setAttribute('id', 'link-item');
   linkSection.appendChild(link); 
 
