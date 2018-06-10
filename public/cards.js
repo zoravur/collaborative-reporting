@@ -100,10 +100,6 @@ function init() {
 
   fb.onDatabaseChange(renderCards);
 
-  var elem = document.querySelector('.modal');
-  var instance = M.Modal.init(elem);
-  instance.open();
-
   window.addEventListener('dragover',function(e){
     e = e || event;
     e.preventDefault();
