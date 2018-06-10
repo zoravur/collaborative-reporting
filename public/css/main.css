@@ -42,7 +42,7 @@ body, html {
 	font-family: Poppins-Regular, sans-serif;
 }
 
-/*---------------------------------------------*/
+/*---------------------------------------------
 a {
 	font-family: Poppins-Regular;
 	font-size: 14px;
@@ -62,8 +62,8 @@ a:focus {
 a:hover {
 	text-decoration: none;
 }
-
-/*---------------------------------------------*/
+*/
+/*---------------------------------------------
 h1,h2,h3,h4,h5,h6 {
 	margin: 0px;
 }
@@ -80,9 +80,9 @@ ul, li {
 	margin: 0px;
 	list-style-type: none;
 }
+*/
 
-
-/*---------------------------------------------*/
+/*---------------------------------------------
 input {
 	outline: none;
 	border: none;
@@ -98,7 +98,7 @@ input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
     -webkit-appearance: none;
 }
-
+*/
 textarea {
   outline: none;
   border: none;
