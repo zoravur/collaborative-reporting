@@ -43,29 +43,6 @@
           <input class="input100" type="text" id="category" placeholder="Enter Category">
         </div>
 
-        <!--<div class="wrap-input100 input100-select bg1">
-=======
-
-
-        <div class="wrap-input100 input100-select bg1">
->>>>>>> 95c9194c9d30a30ca9ed4bfca39cfdfd88bcb29d
-          <span class="label-input100">Category *</span>
-          <div>
-            <select id='category' class="js-select2">
-              <option>Please choose</option>
-              <option>Assault</option>
-              <option>Theft</option>
-              <option>Break and Enter</option>
-              <option>Homocide</option>
-              <option>Robbery</option>
-              <option>Sexual Violence</option>
-              <option>Shooting</option>
-            </select>
-            <div class="dropDownSelect2"></div>
-          </div>
-        </div>-->
-
-
         <div id="new-case-form" class="wrap-input100 validate-input bg0 rs1-alert-validate">
           <span class="label-input100">Description of Incident</span>
           <textarea id="description" class="input100" name="message" placeholder="Your message here..."></textarea>
@@ -86,8 +63,7 @@
     <script charset="utf-8">
   function initMap() {}
   </script>
-  <script async defer
-  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD90ygPBLrS0S848TdO5yKZN2C3oF5XBdo">
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD90ygPBLrS0S848TdO5yKZN2C3oF5XBdo"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src="./firebaseModule.js" charset="utf-8"></script>
  <!--<script src="js/main.js"></script> -->
@@ -111,9 +87,11 @@
             var distance = Math.pow(coords.latitude - snap[key].location.lat, 2) + Math.pow(coords.longitude - snap[key].location.lng, 2);
 
             if(distance < 4) {
-              var req = new XMLHttpRequest();
-              req.open('POST', 'zoravur.localtunnel.me');
-              req.send(snap[key].number);
+              axios({
+                method: 'post',
+                url: 'http://localhost:4000/sendAlert',
+                data: snap[key].number
+              });
             }
 
           });

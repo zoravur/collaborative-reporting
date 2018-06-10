@@ -1,10 +1,8 @@
-//const pythonServerURL = 'http://localhost:4000/uploadVideo';
-const pythonServerURL = '/uploadVideo';
 
-function pushUrlToNode(fileURL)  {
+function pushUrlToNode(fileURL) {
   axios({
     method: 'post',
-    url: pythonServerURL,
+    url: 'http://localhost:4000/uploadVideo',
     data: fileURL
   });
 }
@@ -36,7 +34,6 @@ function onDatabaseChange(callback) {
 }
 
 function uploadFile(caseFileID, input) {
-  console.log(input.files);
   Object.keys(input.files).forEach(key => {
     let file = input.files[key];
 
