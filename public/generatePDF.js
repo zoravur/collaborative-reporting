@@ -16,10 +16,15 @@ function createPDF(caseFile){
 	pdf.setFont("sans-serif");
 	pdf.text(20,42, "Date: " + caseFile.date.substring(0,10));
 	pdf.setFont("sans-serif");
-	pdf.text(20,46, "Location: " + caseFile.address);
+	let lat = Math.round(caseFile.location.lat * 100000) / 100000;
+	let long = Math.round(caseFile.location.lng * 100000) / 100000;
+	pdf.text(20,46, "Location: " + lat + " ," + long);
 	
 	pdf.setFont("sans-serif");
 	pdf.text(20,50, "Description: " + caseFile.description);
+
+	pdf.setFont("sans-serif");
+	pdf.text(20,54, "Images of Suspect: " + caseFile.description);
 
 	pdf.save('report');
 
