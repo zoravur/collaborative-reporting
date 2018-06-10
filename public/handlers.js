@@ -6,8 +6,7 @@ function processCase() {
   let caseFile = {};
   caseFile.id = Math.round(Math.random() * 100000000);
   caseFile.date = new Date();
-  var categoryItem = document.getElementById('category');
-  caseFile.category = categoryItem.options[categoryItem.selectedIndex].text;
+  caseFile.category = document.getElementById('category').value;
   caseFile.description = document.getElementById('description').value;
   caseFile.phone = document.getElementById('phone').value;
   caseFile.address = document.getElementById('address').value; 
